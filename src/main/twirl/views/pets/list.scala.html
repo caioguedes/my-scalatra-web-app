@@ -1,0 +1,9 @@
+@(pets: List[String])
+
+@layouts.html.default("Scalatra First Project Application", "List of Pets Registered"){
+    <ul>
+    @for(name <- pets) {
+        <li>@name</li>
+    }
+    </ul>
+}
