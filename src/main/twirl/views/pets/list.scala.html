@@ -1,9 +1,12 @@
-@(pets: List[String])
+@import com.caioguedes.app.models.Pet
+
+@(pets: List[Pet])
 
 @layouts.html.default("Scalatra First Project Application", "List of Pets Registered"){
+    <a href="/pets/create">Register a Pet</a>
     <ul>
-    @for(name <- pets) {
-        <li>@name</li>
+    @for(pet <- pets) {
+        <li>@pet.name</li>
     }
     </ul>
 }
