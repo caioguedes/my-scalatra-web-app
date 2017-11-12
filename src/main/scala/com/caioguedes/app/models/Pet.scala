@@ -1,3 +1,3 @@
 package com.caioguedes.app.models
 
-class Pet(val name: String)
+class Pet(val id: String, val name: String)

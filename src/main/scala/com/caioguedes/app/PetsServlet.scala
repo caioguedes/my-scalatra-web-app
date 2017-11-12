@@ -1,14 +1,21 @@
 package com.caioguedes.app
 
+import java.util.UUID
+
 import org.scalatra._
 import models.Pet
 
-class PetsServlet extends ScalatraServlet {
+class PetsServlet extends ScalatraServlet with FlashMapSupport {
 
-  var pets = List(new Pet("Menininho"), new Pet("Ellie"), new Pet("Piccolo"), new Pet("Macabeia"))
+  var pets = Seq(
+    new Pet("1", "Menininho"),
+    new Pet("2", "Ellie"),
+    new Pet("3", "Piccolo"),
+    new Pet("4", "Macabeia")
+  )
 
   get("/") {
-    views.html.pets.list(pets)
+    views.html.pets.list(pets, flash)
   }
 
   get("/create") {
@@ -17,8 +24,10 @@ class PetsServlet extends ScalatraServlet {
 
   post("/") {
     val name = params("name")
-    if (!name.isEmpty) pets = new Pet(name) :: pets
-    views.html.pets.success(name)
+    if (!name.isEmpty)
+      pets :+= new Pet(UUID.randomUUID().toString, name)
+    flash("message") = "The Pet was registered!"
+    redirect("/pets")
   }
 
 }

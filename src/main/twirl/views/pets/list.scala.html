@@ -1,8 +1,11 @@
 @import com.caioguedes.app.models.Pet
 
-@(pets: List[Pet])
+@(pets: Seq[Pet], flash:org.scalatra.FlashMap)
 
 @layouts.html.default("Scalatra First Project Application", "List of Pets Registered"){
+    @if(!flash.get("message").isEmpty) {
+        <p style="color: green">@flash.get("message")</p>
+    }
     <a href="/pets/create">Register a Pet</a>
     <ul>
     @for(pet <- pets) {
